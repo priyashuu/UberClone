@@ -44,7 +44,7 @@ Endpoint to register a new user. It validates the provided data, hashes the pass
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1NiIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsImlhdCI6MTYzNjgwODAwMCwiZXhwIjoxNjM2ODk0MDAwfQ.VrEBKVjkCzt5oA2h5xB2q6j6RHkT8T0x1I1s6qD2emE",
   "user": {
-    "fullname" :(object)
+    "fullname" :(object),
     "email": "user@example.com",
     "firstname": "John",
     "lastname": "Doe"
