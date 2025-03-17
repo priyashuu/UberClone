@@ -3,7 +3,7 @@
 ## Description
 Endpoint to register a new user. It validates the provided data, hashes the password, creates a new user record, and returns an authentication token along with the user data.
 
-## URL
+## URL HTTP METHOD
 `POST /users/register`
 
 ## Request Data
