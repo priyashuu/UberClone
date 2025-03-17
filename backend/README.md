@@ -53,7 +53,7 @@ Endpoint to register a new user. It validates the provided data, hashes the pass
 ```
 
 ### Failure
-- **Status Code**: 400
+- **Status Code**: 201
 - **Response Body**:
 ```json
 {
