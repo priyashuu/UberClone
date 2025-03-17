@@ -90,3 +90,77 @@ Endpoint to register a new user. It validates the provided data, hashes the pass
 - Ensure that the password is sufficiently strong.
 - The `lastname` field is optional.
 - The token is generated using JWT and will be used for authenticated requests.
+
+## /users/login Endpoint Documentation
+
+## Description
+Endpoint to authenticate a user. It validates the provided email and password, retrieves the user record, and returns an authentication token along with the user data.
+
+## URL HTTP METHOD
+`POST /users/login`
+
+## Request Data
+- **email**: String, must be a valid email.
+- **password**: String, minimum 6 characters.
+
+### Example Request Body
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword"
+}
+```
+
+## Responses
+
+### Success
+- **Status Code**: 200
+- **Response Body**:
+```json
+{
+  "token": "JWT_TOKEN",
+  "user": {
+    // ...user properties...
+  }
+}
+```
+
+### Example Success Response
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1NiIsImVtYWlsIjoidXNlckBleGFtcGxlLmNvbSIsImlhdCI6MTYzNjgwODAwMCwiZXhwIjoxNjM2ODk0MDAwfQ.VrEBKVjkCzt5oA2h5xB2q6j6RHkT8T0x1I1s6qD2emE",
+  "user": {
+    "id": "123456",
+    "email": "user@example.com",
+    "firstname": "John",
+    "lastname": "Doe"
+  }
+}
+```
+
+### Failure
+- **Status Code**: 400 (Validation errors) or 401 (Invalid credentials)
+- **Response Body**:
+For validation errors:
+```json
+{
+  "errors": [
+    {
+      "msg": "Validation error message",
+      "param": "field name",
+      "location": "body"
+    }
+    // ... other errors
+  ]
+}
+```
+For invalid credentials:
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+## Notes
+- Ensure that both email and password fields are provided.
+- The token is generated using JWT and will be used for authenticated requests.
