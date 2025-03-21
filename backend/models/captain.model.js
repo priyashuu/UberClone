@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jsonwebtoken = require('jsonwebtoken');
 const capatainSchema = new mongoose.Schema({
     fullname:{
         firstname:{
@@ -29,7 +31,7 @@ const capatainSchema = new mongoose.Schema({
     status:{
       type:String,
       enum:['active','inactive'],
-      default:'active',
+      default:'inactive',
     },
     vechile:{
         color:{
@@ -41,6 +43,39 @@ const capatainSchema = new mongoose.Schema({
             type:String,
             required:true,
             min:[1,'Capacity must be atleast ']
+        },
+        capacity:{
+            type:Number,
+            required:true,
+            min:[1,"Capacity must be at least 1"],
+        },
+        vechicalType:{
+            type:String,
+            required:true,
+            enum:['car','motorcycle','auto'],
+        },
+        location:{
+            lat:{
+                type:Number,
+            },
+            lng:{
+              type:Number,
+            }
         }
     }
 })
+
+capatainSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({_id: this._id}, process.env.JWT_SECRET, { expiresIn: '24h' })
+    return token;
+}
+capatainSchema.methods.comparePassword =async function (password) {
+    return await bcrypt.compare(password,this.password)
+}
+
+capatainSchema.statics.hashPassword = async function(password) {
+    return await bcrypt.hash(password,10);
+}
+const capatainModel = mongoose.model("captain",capatainSchema)
+
+module.exports = capatainModel;
