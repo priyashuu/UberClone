@@ -16,4 +16,5 @@ router.post('/register', [
     captainController.registerCaptain
 )
 
+
 module.exports = router;
